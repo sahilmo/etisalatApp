@@ -35,6 +35,8 @@
 					<div class="card-header bg-dark text-white">Employee</div>
 						
 						<div id="root"></div>
+						<div id="root2"></div>
+						
 				</div>
 			</div>
 		</div>
@@ -44,87 +46,177 @@
 			<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
 			<script	src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 			<script	src="https://unpkg.com/babel-standalone@6.26.0/babel.js" crossorigin></script>
-
+			<script	src="https://unpkg.com/react-table@6.8.6/react-table.js" crossorigin></script>
+			
+	
 			<!--  <!-- Load our React component. -->
 			
 			<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/like_button.js"></script>
-			<script type="text/babel">
-			const rootE1 = document.getElementById('root')
-			
-class MyForm extends React.Component {
+
+<script type="text/babel">
+
+class SaveForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      age: null,
+      values: {
+        first_name:"",
+        last_name:"",
+        phone_number:"",
+        hire_date:"",
+        salary:"",
+        department:"",
+        email: ""
+        
+      },
+      isSubmitting: false,
+      isError: false
     };
   }
-  mySubmitHandler = (event) => {
-    event.preventDefault();
-    let age = this.state.age;
-    if (!Number(age)) {
-      alert("Your age must be a number");
-    }
-  }
-  myChangeHandler = (event) => {
-    let nam = event.target.name;
-    let val = event.target.value;
-    this.setState({[nam]: val});
-  }
+
+  submitForm = async e => {
+    e.preventDefault();
+    console.log(this.state);
+    this.setState({ isSubmitting: true });
+
+    const res = await fetch("http://localhost:8080/saveOrUpdateEmp", {
+      method: "POST",
+      body: JSON.stringify(this.state.values),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    this.setState({ isSubmitting: false });
+    const data = await res.json();
+    !data.hasOwnProperty("error")
+      ? this.setState({ message: data.success })
+      : this.setState({ message: data.error, isError: true });
+
+    setTimeout(
+      () =>
+        this.setState({
+          isError: false,
+          message: "",
+          values: { 
+          first_name:"",
+          last_name:"",
+          phone_number:"",
+          hire_date:"",
+          salary:"",
+          department:"",
+          email: ""
+           }
+        }),
+      1600
+    );
+  };
+
+  handleInputChange = e =>
+    this.setState({
+      values: { ...this.state.values, [e.target.name]: e.target.value }
+    });
+
   render() {
     return (
-      <form onSubmit={this.mySubmitHandler}>
-      
-        <p>first name:</p>
-      <input
-        type='text'
-        name='first_name'
-      />
-      <p>last name:</p>
-      <input
-        type='text'
-        name='last_name'
-      />
-      <p>Email:</p>
-      <input
-        type='text'
-        name='email'
-      />
-      <p>phone number:</p>
-      <input
-        type='text'
-        name='phone_number'
-      />
-      <p>hire date:</p>
-      <input
-        type='text'
-        name='hire_date'
-      />
-      <p>salary:</p>
-      <input
-        type='text'
-        name='salary'
-      />
-      <p>department:</p>
-      <input
-        type='text'
-        name='salary'
-      />
-      <br/>
-      <br/>
-      <input type='submit' />
-      </form>
+      <div>
+        <form onSubmit={this.submitForm}>
+        <div className="input-group">
+            <label htmlFor="first_name">first name</label>
+            <input
+              type="text"
+              name="first_name"
+              id="first_name"
+              value={this.state.values.first_name}
+              onChange={this.handleInputChange}
+              title="first_name"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="last_name">last name</label>
+            <input
+              type="text"
+              name="last_name"
+              id="last_name"
+              value={this.state.values.last_name}
+              onChange={this.handleInputChange}
+              title="last_name"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="email">E-mail Address</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={this.state.values.email}
+              onChange={this.handleInputChange}
+              title="Email"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="phone_number">Phone</label>
+            <input
+              type="text"
+              name="phone_number"
+              id="phone_number"
+              value={this.state.values.phone_number}
+              onChange={this.handleInputChange}
+              title="phone_number"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="hire_date">Hire Date</label>
+            <input
+              type="date"
+              name="hire_date"
+              id="hire_date"
+              value={this.state.values.hire_date}
+              onChange={this.handleInputChange}
+              title="hire_date"
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="salary">Salary</label>
+            <input
+              type="text"
+              name="salary"
+              id="salary"
+              value={this.state.values.salary}
+              onChange={this.handleInputChange}
+              title="salary"
+              required
+            />
+          </div>
+          <button type="submit">Save</button>
+        </form>
+        <div>
+          {this.state.isSubmitting ? "Submitting..." : this.state.message}
+        </div>
+      </div>
     );
-  }
-}	
-			ReactDOM.render(<MyForm />,rootE1) 		
-	
-			</script>
-			
+  }	
+}
+
+function App() {
+  return (
+    <div className="App">
+      <h3>Create New</h3>
+      <SaveForm />
+    </div>
+  );
+}
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />,document.getElementById('root2')) 		
+</script>			
 			
 			<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
 			<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-			<script src="webjars/datatables/1.10.20/js/jquery.dataTables.min.js"></script>
 			<script type="text/javascript"
 				src="${pageContext.request.contextPath}/assets/js/template.js"></script>
 </body>

@@ -37,26 +37,45 @@
 			<div class="container text-center">
 				<hr />
 				<div class="row">
-				
-					<span style="padding: 35px; color: #0080ff">
-					 <a	href="/newUser">
-					  <i class="fa fa-id-badge fa-3x"></i>
-					  <br>
-					  	User
-					</a>
-					</span>
-					
-					
-					<span style="padding: 35px; color: #0080ff">
-					 <a	href="/employee">
-					  <i class="fa fa-id-badge fa-3x"></i>
-					  <br>
-					  	Employee
-					</a>
-					</span>
 
+					<span style="padding: 35px; color: #0080ff"> <a
+						href="/newUser"> <i class="fa fa-id-badge fa-3x"></i> <br>
+							User
+					</a>
+					</span> <span style="padding: 35px; color: #0080ff"> <a
+						href="/employee"> <i class="fa fa-id-badge fa-3x"></i> <br>
+							Employee
+					</a>
+					</span>
 				</div>
-				<hr>
+				<br>
+				<h2>Etisalat Project Description:</h2>
+				<table class="table .table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Front End</th>
+							<th scope="col">Back End</th>
+
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr>
+							<th scope="row">User</th>
+							<td>JSP,Bootstrap,Jquery(webjars)</td>
+							<td>H2, Spring ,Hibernate</td>
+
+						</tr>
+						<tr>
+							<th scope="row">Employee</th>
+							<td>React , JSP</td>
+							<td>H2,Rest Service, Hibernate validator</td>
+
+						</tr>
+					</tbody>
+				</table>
+
 			</div>
 
 		</div>
@@ -64,7 +83,8 @@
 	<!-- ================================================================================== -->
 	<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
 	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript"	src="${pageContext.request.contextPath}/assets/js/template.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/assets/js/template.js"></script>
 
 
 </body>

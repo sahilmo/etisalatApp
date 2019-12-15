@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.etisalat.dao.application.EmployeeDaoImpl;
@@ -41,8 +42,8 @@ public class EmployeeController {
 	/*
 	 * get all Employee
 	 */
-	@RequestMapping(value = "/getAllEmp", method = RequestMethod.GET)
-	public List<Employee> getAllemployees() {
+	@RequestMapping(value = "/getAllEmp",produces = "application/json", method = RequestMethod.GET)
+	public @ResponseBody List<Employee> getAllemployees() {
 		return empDAO.getAllEmployee();
 	}
 
@@ -50,14 +51,14 @@ public class EmployeeController {
 	 * Save OR Update Employee
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/saveOrUpdateEmp", method = RequestMethod.POST)
-	public ResponseEntity<?> saveOrUpdateEmp(@Valid @RequestBody Employee emp, Errors errors) {
+	@RequestMapping(value = "/saveOrUpdateEmp", produces = "application/json",method = RequestMethod.POST)
+	public  ResponseEntity<?> saveOrUpdateEmp(@Valid @RequestBody Employee emp, Errors errors) {
 		// validation
 		if (errors.hasErrors()) {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
 		LOG.info("Emp " + emp.toString());
-		return new ResponseEntity<String>(empDAO.saveOrUpdateEmp(emp), HttpStatus.OK);
+		return new ResponseEntity(empDAO.saveOrUpdateEmp(emp), HttpStatus.OK);
 	}
 
 	/*
