@@ -1,0 +1,10 @@
+2019-12-10 17:59:21,551 INFO c.o.c.a.applicaitonController [http-bio-8080-exec-1] getAllUsers
+2019-12-10 18:00:47,629 INFO c.o.c.a.applicaitonController [http-bio-8080-exec-3] delete user_code 1070
+2019-12-10 18:00:47,647 INFO c.o.d.a.ApplicationDaoImpl [http-bio-8080-exec-3] Record Deleted 1
+2019-12-10 18:00:47,671 INFO c.o.c.a.applicaitonController [http-bio-8080-exec-3] getAllUsers
+2019-12-10 18:00:49,686 INFO c.o.c.a.applicaitonController [http-bio-8080-exec-1] delete user_code 1073
+2019-12-10 18:00:49,689 INFO c.o.d.a.ApplicationDaoImpl [http-bio-8080-exec-1] Record Deleted 1
+2019-12-10 18:00:49,706 INFO c.o.c.a.applicaitonController [http-bio-8080-exec-1] getAllUsers
+2019-12-10 18:00:51,733 INFO c.o.c.a.applicaitonController [http-bio-8080-exec-3] delete user_code 1069
+2019-12-10 18:00:51,736 INFO c.o.d.a.ApplicationDaoImpl [http-bio-8080-exec-3] Record Deleted 1
+2019-12-10 18:00:51,754 INFO c.o.c.a.applicaitonController [http-bio-8080-exec-3] getAllUsers
