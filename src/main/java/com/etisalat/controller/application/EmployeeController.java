@@ -51,13 +51,19 @@ public class EmployeeController {
 	 * Save OR Update Employee
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/saveOrUpdateEmp", produces = "application/json",method = RequestMethod.POST)
+	@RequestMapping(
+			value = "/saveOrUpdateEmp",
+			consumes="application/json",
+			method = RequestMethod.POST,
+			produces = "application/json",
+			headers = "content-type=application/json")
 	public  ResponseEntity<?> saveOrUpdateEmp(@Valid @RequestBody Employee emp, Errors errors) {
+		
 		// validation
 		if (errors.hasErrors()) {
 			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
-		LOG.info("Emp " + emp.toString());
+//		LOG.info("Emp " + emp.toString());
 		return new ResponseEntity(empDAO.saveOrUpdateEmp(emp), HttpStatus.OK);
 	}
 

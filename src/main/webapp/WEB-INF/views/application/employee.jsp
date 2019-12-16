@@ -33,27 +33,28 @@
 
 				<div class="card h-90 shadow-lg p-3 mb-5 bg-white rounded border">
 					<div class="card-header bg-dark text-white">Employee</div>
-						
-						<div id="root"></div>
-						<div id="root2"></div>
-						
+
+					<div id="root"></div>
+					<div id="root2"></div>
+
 				</div>
 			</div>
 		</div>
-		</div>	
-			<!-- Load React. -->
-			<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-			<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-			<script	src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-			<script	src="https://unpkg.com/babel-standalone@6.26.0/babel.js" crossorigin></script>
-			<script	src="https://unpkg.com/react-table@6.8.6/react-table.js" crossorigin></script>
-			
+	</div>
+	<!-- Load React. -->
+	<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+	<!-- <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+			<script	src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script> -->
+	<script src="webjars/react/15.6.1/react.min.js"></script>
+	<script src="webjars/react-dom/15.6.1/dist/react-dom.min.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js" crossorigin></script>
 	
-			<!--  <!-- Load our React component. -->
-			
-			<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/like_button.js"></script>
+	<!--  <!-- Load our React component. -->
 
-<script type="text/babel">
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/assets/js/like_button.js"></script>
+
+	<script type="text/babel">
 
 class SaveForm extends React.Component {
   constructor(props) {
@@ -65,8 +66,9 @@ class SaveForm extends React.Component {
         phone_number:"",
         hire_date:"",
         salary:"",
-        department:"",
-        email: ""
+        department:null,
+        email: "",
+		manager:null
         
       },
       isSubmitting: false,
@@ -83,11 +85,12 @@ class SaveForm extends React.Component {
       method: "POST",
       body: JSON.stringify(this.state.values),
       headers: {
-        "Content-Type": "application/json"
+        "content-type":"application/json"
       }
     });
     this.setState({ isSubmitting: false });
-    const data = await res.json();
+    const data = await res;
+	alert(data);
     !data.hasOwnProperty("error")
       ? this.setState({ message: data.success })
       : this.setState({ message: data.error, isError: true });
@@ -103,8 +106,9 @@ class SaveForm extends React.Component {
           phone_number:"",
           hire_date:"",
           salary:"",
-          department:"",
-          email: ""
+          department:null,
+          email: "",
+		  manager:null
            }
         }),
       1600
@@ -213,12 +217,12 @@ function App() {
 }
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />,document.getElementById('root2')) 		
-</script>			
-			
-			<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
-			<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-			<script type="text/javascript"
-				src="${pageContext.request.contextPath}/assets/js/template.js"></script>
+</script>
+
+	<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/assets/js/template.js"></script>
 </body>
 
 
