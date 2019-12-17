@@ -57,7 +57,7 @@ public class Employee {
     private Employee manager;
 
     @ManyToOne
-    @JoinColumn(name="department_id",nullable= true)
+    @JoinColumn(name="department_id",nullable= false)
     private Department department;
 
     public Employee() {

@@ -47,22 +47,10 @@ public class ApplicaitonController {
 	EmployeeDaoImpl empDAO;
 	
 	@RequestMapping(value =  "/", method = RequestMethod.GET)
-	public String start() {
-		createFakeEmployee();		
+	public String start() {		
 		return "application";
 	}
-	
-	public void createFakeEmployee(){
-		emp.setFirst_name("mohammad");
-		emp.setLast_name("sahil");
-		emp.setEmail("sahilasind@gmail.com");
-		emp.setPhone_number("0507594132");
-		emp.setSalary(1000);
-		emp.setHire_date(new Date());
-		empDAO.saveOrUpdateEmp(emp);
 		
-	}
-	
 	/*
 	 * Add new user of the apps_users table 
 	 * */	
