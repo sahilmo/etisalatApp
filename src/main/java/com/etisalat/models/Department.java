@@ -17,27 +17,26 @@ import org.springframework.stereotype.Component;
 public class Department {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="department_id")
-    private Integer department_id ;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "department_id")
+	private Integer department_id;
 
-	@Column(name ="department_name")
-    private String department_name ;
-    
+	@Column(name = "department_name")
+	private String department_name;
+
 	@ManyToOne
-	@JoinColumn(name="manager_id",nullable= true)
+	@JoinColumn(name = "manager_id", nullable = true)
 	private Employee emp;
 
-    public Department() {
-    }
-    
-  
-	public Department(String department_name, Employee emp) {
+	public Department() {
+	}
+
+	public Department(Integer department_id, String department_name, Employee emp) {
 		super();
+		this.department_id = department_id;
 		this.department_name = department_name;
 		this.emp = emp;
 	}
-
 
 	public Integer getDepartment_id() {
 		return department_id;
@@ -63,13 +62,10 @@ public class Department {
 		this.emp = emp;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Department [department_id=" + department_id + ", department_name=" + department_name + ", emp=" + emp
 				+ "]";
 	}
 
-	
-    
 }

@@ -64,10 +64,10 @@ public class EmployeeDaoImpl {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 			session.saveOrUpdate(emp);
-			return "success"  ;
+			return "[{\"defaultMessage\":\"success\"}]"  ;
 		} catch (Exception e) {
 			LOG.error("Exception " + e);
-			return "error"  ;
+			return "[{\"defaultMessage\":\"error\"}]"  ;
 		}
 		
 	}

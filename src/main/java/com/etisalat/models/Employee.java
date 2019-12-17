@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,7 +57,7 @@ public class Employee {
     @JoinColumn(name="manager_id",nullable= true)
     private Employee manager;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="department_id",nullable= false)
     private Department department;
 
@@ -155,8 +156,5 @@ public class Employee {
 				+ ", email=" + email + ", phone_number=" + phone_number + ", hire_date=" + hire_date + ", salary="
 				+ salary + ", manager=" + manager + ", department=" + department + "]";
 	}
-
-	
-    
     
 }

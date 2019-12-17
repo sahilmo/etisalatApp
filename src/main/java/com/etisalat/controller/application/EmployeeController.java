@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -50,21 +51,21 @@ public class EmployeeController {
 	/*
 	 * Save OR Update Employee
 	 */
-	@SuppressWarnings("unchecked")
 	@RequestMapping(
 			value = "/saveOrUpdateEmp",
-			consumes="application/json",
 			method = RequestMethod.POST,
-			produces = "application/json",
+			produces = MediaType.APPLICATION_JSON_VALUE,
 			headers = "content-type=application/json")
-	public  ResponseEntity<?> saveOrUpdateEmp(@Valid @RequestBody Employee emp, Errors errors) {
-		
+	@ResponseBody
+	public ResponseEntity<?> saveOrUpdateEmp(@Valid @RequestBody Employee emp, Errors errors) {
+	
 		// validation
 		if (errors.hasErrors()) {
-			return new ResponseEntity(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
+			return  new ResponseEntity<>(errors.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
-//		LOG.info("Emp " + emp.toString());
-		return new ResponseEntity(empDAO.saveOrUpdateEmp(emp), HttpStatus.OK);
+		
+		return  new ResponseEntity<>(empDAO.saveOrUpdateEmp(emp), HttpStatus.OK);
+		
 	}
 
 	/*
@@ -79,7 +80,7 @@ public class EmployeeController {
 
 		return new ResponseEntity<Employee>(emp, HttpStatus.OK);
 	}
-
+	
 	/*
 	 * Delete Emp
 	 */
