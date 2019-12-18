@@ -41,18 +41,16 @@ class SaveForm extends React.Component {
           data: json
         })
         console.log('parsed json', json)
-        alert("Employee Saved Success");
+        const arr = Object.keys(json).map((key) => [key, json[key]]);
+        console.log(arr);
+        alert(arr[0][1].defaultMessage);
+
       })
       .catch((ex) => {
         console.log('parsing failed', ex)
       })
-
-
     //console.log(this.state.data);
-
-
-
-    // this.setState({ isSubmitting: false });
+    this.setState({ isSubmitting: false });
     // const data = await res;
     // !data.hasOwnProperty("error")
     //   ? this.setState({ message: data.success })
