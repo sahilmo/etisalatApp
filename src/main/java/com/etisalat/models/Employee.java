@@ -18,6 +18,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Component
 @Entity
 @Table(name = "EMPLOYEE")
@@ -47,7 +49,8 @@ public class Employee {
     private String phone_number;
 
     @Column(name= "hire_date")
-    private Date hire_date;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private java.util.Date hire_date;
     
     @Min(value = 0L, message = "Salary must be greater then 0")
     @Column(name= "salary")

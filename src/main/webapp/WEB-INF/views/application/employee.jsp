@@ -38,6 +38,36 @@ form {
   padding:5px;
   
 }
+#title {
+  text-align: center;
+  font-family: arial, sans-serif;
+}
+
+#emp {
+  text-align: center;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  border: 3px solid #ddd;
+  width: 100%;
+}
+
+#emp td, #emp th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#emp tr:nth-child(even){background-color: #f2f2f2;}
+
+#emp tr:hover {background-color: #ddd;}
+
+#emp th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #4CAF50;
+  color: white;
+}
+
 </style>
 </head>
 <body>
@@ -52,11 +82,10 @@ form {
 
 				<div class="card h-90 shadow-lg p-3 mb-5 bg-white rounded border">
 					<div class="card-header bg-dark text-white">Employee</div>
-
 					<div id="root"></div>
 					<div id="root2"></div>
-
 				</div>
+			
 			</div>
 		</div>
 	</div>
@@ -69,11 +98,8 @@ form {
 	<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js" crossorigin></script>
 	
 	<!--  <!-- Load our React component. -->
-
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/assets/js/like_button.js"></script>
-	<script type="text/babel"
-		src="${pageContext.request.contextPath}/assets/js/empForm.js"></script>
+	<script type="text/babel" src="${pageContext.request.contextPath}/assets/js/empForm.js"></script>
+	<script type="text/babel" src="${pageContext.request.contextPath}/assets/js/empTable.js"></script>
 
 
 	<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
