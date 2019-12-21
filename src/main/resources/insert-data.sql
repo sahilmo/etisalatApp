@@ -2,3 +2,12 @@ INSERT INTO DEPARTMENT(department_id,department_name,manager_id) values(101,'IT 
 INSERT INTO DEPARTMENT(department_id,department_name,manager_id) values(102,'Accounts', null);
 INSERT INTO EMPLOYEE(employee_id,first_name,last_name,email,phone_number,hire_date,salary,manager_id,department_id) values(1001,'mohmmad','sahil','sahilasind@gmail.com','05075941132','2019-01-01',13000,null,101);
 INSERT INTO EMPLOYEE(employee_id,first_name,last_name,email,phone_number,hire_date,salary,manager_id,department_id) values(1002,'Ibrahim','masood','Ibrahimasind@gmail.com','0507592315','2019-01-01',15000,null,101);
+INSERT INTO EMPLOYEE(employee_id,first_name,last_name,email,phone_number,hire_date,salary,manager_id,department_id) values(1003,'Ibrahim','masood','Ibrahimasind@gmail.com','0507592315','2019-01-01',15000,null,101);
+INSERT INTO EMPLOYEE(employee_id,first_name,last_name,email,phone_number,hire_date,salary,manager_id,department_id) values(1004,'Ibrahim','masood','Ibrahimasind@gmail.com','0507592315','2019-01-01',15000,null,101);
+INSERT INTO EMPLOYEE(employee_id,first_name,last_name,email,phone_number,hire_date,salary,manager_id,department_id) values(1005,'Ibrahim','masood','Ibrahimasind@gmail.com','0507592315','2019-01-01',15000,null,101);
+INSERT INTO EMPLOYEE(employee_id,first_name,last_name,email,phone_number,hire_date,salary,manager_id,department_id) values(1006,'Ibrahim','masood','Ibrahimasind@gmail.com','0507592315','2019-01-01',15000,null,101);
+INSERT INTO EMPLOYEE(employee_id,first_name,last_name,email,phone_number,hire_date,salary,manager_id,department_id) values(1007,'Ibrahim','masood','Ibrahimasind@gmail.com','0507592315','2019-01-01',15000,null,101);
+INSERT INTO EMPLOYEE(employee_id,first_name,last_name,email,phone_number,hire_date,salary,manager_id,department_id) values(1008,'Ibrahim','masood','Ibrahimasind@gmail.com','0507592315','2019-01-01',15000,null,101);
+INSERT INTO EMPLOYEE(employee_id,first_name,last_name,email,phone_number,hire_date,salary,manager_id,department_id) values(1009,'Ibrahim','masood','Ibrahimasind@gmail.com','0507592315','2019-01-01',15000,null,101);
+INSERT INTO EMPLOYEE(employee_id,first_name,last_name,email,phone_number,hire_date,salary,manager_id,department_id) values(1010,'Ibrahim','masood','Ibrahimasind@gmail.com','0507592315','2019-01-01',15000,null,101);
+INSERT INTO EMPLOYEE(employee_id,first_name,last_name,email,phone_number,hire_date,salary,manager_id,department_id) values(1011,'Ibrahim','masood','Ibrahimasind@gmail.com','0507592315','2019-01-01',15000,null,101);

@@ -83,7 +83,7 @@ form {
 				<div class="card h-90 shadow-lg p-3 mb-5 bg-white rounded border">
 					<div class="card-header bg-dark text-white">Employee</div>
 					<div id="root"></div>
-					<div id="root2"></div>
+					<!-- <div id="root2"></div> -->
 				</div>
 			
 			</div>
@@ -103,6 +103,7 @@ form {
 
 
 	<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+	<script src="webjars/datatables/1.10.20/js/jquery.dataTables.min.js"></script>
 	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/assets/js/template.js"></script>

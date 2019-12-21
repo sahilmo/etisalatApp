@@ -43,9 +43,11 @@ public class EmployeeController {
 	/*
 	 * get all Employee
 	 */
-	@RequestMapping(value = "/getAllEmp",produces = "application/json", method = RequestMethod.GET)
-	public @ResponseBody List<Employee> getAllemployees() {
-		return empDAO.getAllEmployee();
+	@RequestMapping(value = "/getAllEmp/{firstResult}",produces = "application/json", method = RequestMethod.GET)
+	public @ResponseBody List<Employee> getAllemployees(@PathVariable int firstResult) {
+		int maxResults = 5;
+		//pagination parameter 
+		return empDAO.getAllEmployee(firstResult,maxResults);
 	}
 
 	/*

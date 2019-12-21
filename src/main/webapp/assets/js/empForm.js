@@ -14,23 +14,29 @@ class App extends React.Component {
         department: {
           department_id: 102
         }
-      }
+      },
+      data: []
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.handleClick = this.handleClick.bind(this);
+    this.editClick = this.editClick.bind(this);
   }
 
   handleChange(propertyName, event) {
     //console.log(event);
     const employee = this.state.employee;
     employee[propertyName] = event.target.value;
+    //this.setState({ employee: { ...employee } });
     this.setState({ employee: employee });
+    //console.log(this.state.employee);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
+    console.log("saving state: ", this.state.employee);
     var component = this;
     fetch("http://localhost:8080/saveOrUpdateEmp", {
       method: "POST",
@@ -57,54 +63,167 @@ class App extends React.Component {
         console.log('parsing failed', ex)
       })
   }
+  componentDidMount() {
+    fetch("http://localhost:8080/getAllEmp/0").
+      then(response => response.json()).
+      then(findresponse => {
+        this.setState({
+          data: [findresponse]
+        });
+      })
+  }
+  /** 
+   *  Delete Employee 
+  */
+  handleClick = () => {
+    let user_code = event.target.value;
+    console.log('edit user:', user_code);
+    $.ajax({
+      type: 'DELETE',
+      url: 'deleteEmp/' + user_code,
+      contentType: "application/json",
+      dataType: 'json',
+      /*   data: { user_code: user_code }, */
+      async: true,
+      success: function (result) {
+        alert("Result" + result.msg);
+        window.location.reload();
 
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("Status" + jqXHR.status + ' ' + jqXHR.responseText);
+        window.location.reload();
+
+      }
+    });
+  }
+
+/**
+ * get Employee to edit
+ * 
+*/ editClick() {
+    const employee = this.state.employee;
+    let employee_id = event.target.value;
+    console.log('edit emp:', employee_id);
+    $.ajax({
+      type: 'GET',
+      url: 'getEmp/' + employee_id,
+      dataType: 'json',
+      data: { employee_id: employee_id },
+      async: true,
+      success: function (result) {
+        //populate empForm
+        var form = $("#empForm");
+        var i;
+        for (i in result) {
+          form.find('[name="' + i + '"]').val(result[i]);
+          employee[i] = result[i];
+        }
+
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert(jqXHR.status + ' ' + jqXHR.responseText);
+      }
+    });
+    console.log("employee", employee);
+    this.setState({ employee: employee });
+  }
   render() {
     return (
-      <form id="empForm" onSubmit={this.handleSubmit}>
-        <div className="input-group">
-          <label> first name:</label>
-          <input type="text"
-            name="first_name"
-            value={this.state.employee.first_name} onChange={this.handleChange.bind(this, 'first_name')} />
-        </div>
-        <div className="input-group">
-          <label > last name:
+      <div>
+        <form id="empForm" onSubmit={this.handleSubmit}>
+          <div className="input-group">
+            <label> first name:</label>
+            <input type="text"
+              name="first_name"
+              value={this.state.employee.first_name} onChange={this.handleChange.bind(this, 'first_name')} />
+          </div>
+          <div className="input-group">
+            <label > last name:
           </label>
-          <input type="text"
-            name="last_name"
-            value={this.state.employee.last_name} onChange={this.handleChange.bind(this, 'last_name')} />
-        </div>
-        <div className="input-group">
-          <label> email:
+            <input type="text"
+              name="last_name"
+              value={this.state.employee.last_name} onChange={this.handleChange.bind(this, 'last_name')} />
+          </div>
+          <div className="input-group">
+            <label> email:
           </label>
-          <input type="text"
-            name="email"
-            value={this.state.employee.email} onChange={this.handleChange.bind(this, 'email')} />
-        </div>
-        <div className="input-group">
-          <label> phone number:
+            <input type="text"
+              name="email"
+              value={this.state.employee.email} onChange={this.handleChange.bind(this, 'email')} />
+          </div>
+          <div className="input-group">
+            <label> phone number:
           </label>
-          <input type="text"
-            name="phone_number"
-            value={this.state.employee.phone_number} onChange={this.handleChange.bind(this, 'phone_number')} />
-        </div>
-        <div className="input-group">
-          <label> hire date:
+            <input type="text"
+              name="phone_number"
+              value={this.state.employee.phone_number} onChange={this.handleChange.bind(this, 'phone_number')} />
+          </div>
+          <div className="input-group">
+            <label> hire date:
           </label>
-          <input type="date"
-            name="hire_date"
-            value={this.state.employee.hire_date} onChange={this.handleChange.bind(this, 'hire_date')} />
-        </div>
-        <div className="input-group">
+            <input type="date"
+              name="hire_date"
+              value={this.state.employee.hire_date} onChange={this.handleChange.bind(this, 'hire_date')} />
+          </div>
+          <div className="input-group">
 
-          <label> salary:
+            <label> salary:
           </label>
-          <input type="text"
-            name="salary"
-            value={this.state.employee.salary} onChange={this.handleChange.bind(this, 'salary')} />
+            <input type="text"
+              name="salary"
+              value={this.state.employee.salary} onChange={this.handleChange.bind(this, 'salary')} />
+          </div>
+          <input type="submit" className="btn  btn-success btn-sm float-left" value="Submit" />
+        </form>
+        <div>
+          {
+            this.state.data.map((dynamicData, Key) => {
+              let keys = Object.keys(dynamicData);
+              let d = dynamicData;
+              return keys.map(data => {
+                return (
+                  <div style={{ border: '1px solid black' }}>
+
+                    <table id="emp" border="1" class="table myDataTable w-auto small table-sm table-striped table-bordered">
+                      {/* <thead class="thead-dark">
+                      <tr>
+                        <th>#</th>
+                        <th>Company</th>
+                        <th>UserId</th>
+                        <th>Role</th>
+                        <th>Email</th>
+                        <th>Desc</th>
+                        <th>Contact</th>
+                        <th>Password</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead> */}
+                      <tbody >
+                        <tr>
+                          <td>{dynamicData[data].employee_id}</td>
+                          <td>{dynamicData[data].first_name}</td>
+                          <td>{dynamicData[data].last_name}</td>
+                          <td>{dynamicData[data].email}</td>
+                          <td>{dynamicData[data].phone_number}</td>
+                          <td>{dynamicData[data].hire_date}</td>
+                          <td>{dynamicData[data].salary}</td>
+                          {/* <td>{dynamicData[data].department.department_name}</td> */}
+                          <td><button value={dynamicData[data].employee_id} onClick={this.editClick}
+                            className="btn  btn-primary btn-sm">Edit </button> &nbsp;&nbsp;
+                             <button value={dynamicData[data].employee_id} onClick={this.handleClick}
+                              className="btn  btn-danger btn-sm">Delete </button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                );
+              });
+            })
+
+          }
         </div>
-        <input type="submit" className="btn  btn-success btn-sm float-left" value="Submit" />
-      </form>
+      </div>
     );
   }
 }

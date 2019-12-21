@@ -34,13 +34,15 @@ public class EmployeeDaoImpl {
 	 * @Author- Sahilmo
 	 * 
 	 */
-	public List<Employee> getAllEmployee() {
+	public List<Employee> getAllEmployee(int firstResult, int maxResults) {
 		Session session = sessionFactory.getCurrentSession();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
 		CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
 		Root<Employee> root = cq.from(Employee.class);
 		cq.select(root);
 		Query query = session.createQuery(cq);
+		query.setFirstResult(firstResult);
+		query.setMaxResults(maxResults);
 		return query.getResultList();
 	}
 

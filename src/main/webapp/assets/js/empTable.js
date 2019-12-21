@@ -12,7 +12,7 @@ class Emp extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8080/getAllEmp").
+    fetch("http://localhost:8080/getAllEmp/0").
       then(response => response.json()).
       then(findresponse => {
         this.setState({
@@ -83,34 +83,36 @@ class Emp extends React.Component {
               return (
                 <div style={{ border: '1px solid black' }}>
 
-                  <table id='emp'>
-                    {/* <tr>
-                      <th>Emp id</th>
-                      <th>First name</th>
-                      <th>Last name</th>
-                      <th>Email </th>
-                      <th>Mobile </th>
-                      <th>Hire Date </th>
-                      <th>Salary </th>
-                      <th>Department </th>
-                    </tr> */}
-                    <tr style={{ border: '1px  black' }}>
-
-
-                      <td><button value={dynamicData[data].employee_id} onClick={this.editClick}
-                        className="btn  btn-primary btn-sm">Edit </button></td>
-                      <td><button value={dynamicData[data].employee_id} onClick={this.handleClick}
-                        className="btn  btn-danger btn-sm">Delete </button></td>
-                      <td>{dynamicData[data].employee_id}</td>
-                      <td>{dynamicData[data].first_name}</td>
-                      <td>{dynamicData[data].last_name}</td>
-                      <td>{dynamicData[data].email}</td>
-                      <td>{dynamicData[data].phone_number}</td>
-                      <td>{dynamicData[data].hire_date}</td>
-                      <td>{dynamicData[data].salary}</td>
-                      <td>{dynamicData[data].department.department_name}</td>
-                    </tr>
-
+                  <table id="emp" border="1" class="table myDataTable w-auto small table-sm table-striped table-bordered">
+                    {/* <thead class="thead-dark">
+                      <tr>
+                        <th>#</th>
+                        <th>Company</th>
+                        <th>UserId</th>
+                        <th>Role</th>
+                        <th>Email</th>
+                        <th>Desc</th>
+                        <th>Contact</th>
+                        <th>Password</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead> */}
+                    <tbody >
+                      <tr>
+                        <td>{dynamicData[data].employee_id}</td>
+                        <td>{dynamicData[data].first_name}</td>
+                        <td>{dynamicData[data].last_name}</td>
+                        <td>{dynamicData[data].email}</td>
+                        <td>{dynamicData[data].phone_number}</td>
+                        <td>{dynamicData[data].hire_date}</td>
+                        <td>{dynamicData[data].salary}</td>
+                        <td>{dynamicData[data].department.department_name}</td>
+                        <td><button value={dynamicData[data].employee_id} onClick={this.editClick}
+                          className="btn  btn-primary btn-sm">Edit </button> &nbsp;&nbsp;
+                             <button value={dynamicData[data].employee_id} onClick={this.handleClick}
+                            className="btn  btn-danger btn-sm">Delete </button></td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               );
