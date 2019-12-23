@@ -67,6 +67,17 @@ form {
   background-color: #4CAF50;
   color: white;
 }
+#page-numbers {
+  list-style: none;
+  display: flex;
+}
+
+#page-numbers > li {
+  margin-right: 0.3em;
+  color: blue;
+  user-select: none;
+  cursor: pointer;
+}
 
 </style>
 </head>

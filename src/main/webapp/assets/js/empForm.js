@@ -15,14 +15,20 @@ class App extends React.Component {
           department_id: 102
         }
       },
-      data: []
+      data: [],
+      todos: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'],
+      currentPage: 1,
+      dataPerPage: 3
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
-    this.handleClick = this.handleClick.bind(this);
+    this.deleteClick = this.deleteClick.bind(this);
     this.editClick = this.editClick.bind(this);
+
+    this.handleClick = this.handleClick.bind(this);
+
   }
 
   handleChange(propertyName, event) {
@@ -75,7 +81,7 @@ class App extends React.Component {
   /** 
    *  Delete Employee 
   */
-  handleClick = () => {
+  deleteClick = () => {
     let user_code = event.target.value;
     console.log('edit user:', user_code);
     $.ajax({
@@ -128,7 +134,41 @@ class App extends React.Component {
     console.log("employee", employee);
     this.setState({ employee: employee });
   }
+  handleClick(event) {
+    this.setState({
+      currentPage: Number(event.target.id)
+    });
+  }
   render() {
+    const { todos, currentPage, dataPerPage } = this.state;
+
+    // Logic for displaying current todos
+    const indexOfLastTodo = currentPage * dataPerPage;
+    const indexOfFirstTodo = indexOfLastTodo - dataPerPage;
+    const currentTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
+
+    const renderTodos = currentTodos.map((todo, index) => {
+      return <li key={index}>{todo}</li>;
+    });
+
+    // Logic for displaying page numbers
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(todos.length / dataPerPage); i++) {
+      pageNumbers.push(i);
+    }
+
+    const renderPageNumbers = pageNumbers.map(number => {
+      return (
+        <li
+          key={number}
+          id={number}
+          onClick={this.handleClick}
+        >
+          {number}
+        </li>
+      );
+    });
+
     return (
       <div>
         <form id="empForm" onSubmit={this.handleSubmit}>
@@ -177,51 +217,54 @@ class App extends React.Component {
           <input type="submit" className="btn  btn-success btn-sm float-left" value="Submit" />
         </form>
         <div>
-          {
-            this.state.data.map((dynamicData, Key) => {
-              let keys = Object.keys(dynamicData);
-              let d = dynamicData;
-              return keys.map(data => {
-                return (
-                  <div style={{ border: '1px solid black' }}>
-
-                    <table id="emp" border="1" class="table myDataTable w-auto small table-sm table-striped table-bordered">
-                      {/* <thead class="thead-dark">
-                      <tr>
-                        <th>#</th>
-                        <th>Company</th>
-                        <th>UserId</th>
-                        <th>Role</th>
-                        <th>Email</th>
-                        <th>Desc</th>
-                        <th>Contact</th>
-                        <th>Password</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead> */}
-                      <tbody >
-                        <tr>
-                          <td>{dynamicData[data].employee_id}</td>
-                          <td>{dynamicData[data].first_name}</td>
-                          <td>{dynamicData[data].last_name}</td>
-                          <td>{dynamicData[data].email}</td>
-                          <td>{dynamicData[data].phone_number}</td>
-                          <td>{dynamicData[data].hire_date}</td>
-                          <td>{dynamicData[data].salary}</td>
-                          {/* <td>{dynamicData[data].department.department_name}</td> */}
-                          <td><button value={dynamicData[data].employee_id} onClick={this.editClick}
-                            className="btn  btn-primary btn-sm">Edit </button> &nbsp;&nbsp;
-                             <button value={dynamicData[data].employee_id} onClick={this.handleClick}
-                              className="btn  btn-danger btn-sm">Delete </button></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                );
-              });
-            })
-
-          }
+          <table id="emp" border="1" class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th>#</th>
+                <th>Company</th>
+                <th>UserId</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>Desc</th>
+                <th>Contact</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody >
+              {this.state.data.map((dynamicData, Key) => {
+                let keys = Object.keys(dynamicData);
+                //let d = dynamicData;
+                return keys.map(data => {
+                  return (
+                    // <div style={{ border: '1px solid black' }}>
+                    <tr style={{ border: '1px solid black' }}>
+                      <td>{dynamicData[data].employee_id}</td>
+                      <td>{dynamicData[data].first_name}</td>
+                      <td>{dynamicData[data].last_name}</td>
+                      <td>{dynamicData[data].email}</td>
+                      <td>{dynamicData[data].phone_number}</td>
+                      <td>{dynamicData[data].hire_date}</td>
+                      <td>{dynamicData[data].salary}</td>
+                      {/* <td>{dynamicData[data].department.department_name}</td> */}
+                      <td><button value={dynamicData[data].employee_id} onClick={this.editClick}
+                        className="btn  btn-primary btn-sm">Edit </button> &nbsp;&nbsp;
+                             <button value={dynamicData[data].employee_id} onClick={this.deleteClick}
+                          className="btn  btn-danger btn-sm">Delete </button></td>
+                    </tr>
+                    // </div>
+                  );
+                });
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <ul>
+            {renderTodos}
+          </ul>
+          <ul id="page-numbers">
+            {renderPageNumbers}
+          </ul>
         </div>
       </div>
     );
